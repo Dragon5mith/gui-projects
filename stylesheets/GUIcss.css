@@ -19,27 +19,9 @@ li {
 
 
 h1 {
-  font-size: x-large;
+  font-size: large;
 }
 
-
-/*
-div#assn {
-  padding-left: 10px;
-  //not sure why, but padding-top appears to jump from 0 pixels to ~20
-  padding-top: 1px;
-  background-color: beige;
-  
-  // These items don't seem to have any effect whatsoever
-  //border-width: 5px;
-  //border-radius: 5px;
-  //border-color: black;
-  //box-shadow: 5px;
-}
-*/
-
-h3 {
-}
 
 ul{
   //display: inline;
