@@ -146,8 +146,8 @@
         }
 
         // If any errors, do not update the table, just give the warning
-        if (errors > 0) {
-          if (errors === 1) {
+        if (numerrors > 0) {
+          if (numerrors === 1) {
             errend = "is not a valid number.</span>";
           } else {
             errend = "are not valid numbers.</span>";
@@ -253,7 +253,7 @@
         </p>
         <form id="inputs" action="javascript:void(0)">
           <p>
-            Across the top:
+            Columns:
           </p>
           <p class="indent">
             Start
@@ -264,7 +264,7 @@
             <input type="text" id="colstep" value="1"/>
           </p>
           <p>
-            Down the left:
+            Rows:
           </p>
           <p class="indent">
             Start
@@ -276,6 +276,7 @@
           </p>
           <input type="submit" value="Recalculate"/>
         </form>
+        <h5 id="errors"></h5>
         <ul id="tables">
           <li>
             <h4>Addition</h4>
@@ -300,21 +301,7 @@
             <table id="division">
             </table>
           </li>
-          <!--
-          <li>
-            <table id="testing">
-              <tr>
-                <td>Hi?</td>
-              </tr>
-              <tr>
-                <td>hello</td>
-                <td>there</td>
-              </tr>
-            </table>
-          </li>
-          -->
         </ul>
-        <h5 id="errors"></h5>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
