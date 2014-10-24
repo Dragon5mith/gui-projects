@@ -25,6 +25,8 @@
        dataType: "json"
        });
        */
+       
+       //set up the function on submission
       jQuery(document).ready(function() {
         //var strContent = "really?";
         repopulate(1, 5, 1, 1, 4, 1);
@@ -32,6 +34,7 @@
           //var testwindow = window.open("", "testing");
           //testwindow.document.write("yep");
 
+          //remove unnecessary error messages
           $("h5").children().remove();
           $("input").removeClass("error");
 
@@ -77,6 +80,7 @@
           //testwindow.document.write("?" + r1 + "," + r2 + "," + r3 + "," + r4 + "?");
           //testwindow.document.write("?" + c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5 + "?");
 
+          //run the table filling function
           repopulate(cm, cx, cs, rm, rx, rs);
         });
         //document.writeln(strContent);
@@ -158,6 +162,7 @@
           return;
         }
 
+        //first heading row
         for (i = colmin; i <= colmax; i += colstep) {
           add += "<td>" + i + "</td>";
           sub += "<td>" + i + "</td>";
@@ -173,6 +178,8 @@
         //testwindow.document.write("?2:" + cols + "/" + rows + "?");
         i = 0;
         //testwindow.document.write("?V"+i+"?");
+        
+        //fill the tables
         for (i = rowmin; i <= rowmax; i += rowstep) {
           //testwindow.document.write("?I"+i+"?");
 
@@ -205,6 +212,7 @@
 
         //testwindow.document.write("?add2:" + add + "?");
 
+        //doubled placements because each type has had times when they didn't work
         document.getElementById("addition").innerHTML = add;
         jQuery("#addition").html(add);
         document.getElementById("subtraction").innerHTML = sub;
@@ -251,6 +259,7 @@
           I decided to use more than multiplication and do addition, subtraction, and division as well. 
           <br>
         </p>
+        <!-- inputting the form step size added for my own variation -->
         <form id="inputs" action="javascript:void(0)">
           <p>
             Columns:
@@ -276,7 +285,14 @@
           </p>
           <input type="submit" value="Recalculate"/>
         </form>
+        
+        <!-- spot to hold error messages -->
         <h5 id="errors"></h5>
+        
+        <!-- 
+          empty tables the first has a testing value that only shows up when
+          problems happen
+        -->
         <ul id="tables">
           <li>
             <h4>Addition</h4>
