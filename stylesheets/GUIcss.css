@@ -1,0 +1,181 @@
+/* 
+    Created on : Sep 10, 2014, 2:32:10 PM
+    Author     : Ian Smith
+    Contact    : ismithorigami@gmail.com
+    File       : ~ismith/gui/css/GUIcss.css
+    
+    CSS file for GUI 1 files
+    while helpful, I will not keep track of css lines in main code
+      the numbers would change too often to keep up to date
+*/
+
+/*adjust the image size (and alt text) for personal info picture*/
+img {
+  width: 10%;
+  height: 10%;
+  font-size: x-small;
+  color: red;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  padding: 200px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  background-color: lavenderblush;
+}
+
+/*individual items in the assignments list*/
+li {
+  list-style-type: none;
+  border: 2px solid;
+  border-radius: 6px;
+  background-color: beige;
+}
+
+/*paragraphs specifically in the assignment list doesn't seem to change anything'*/
+li.p {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/*main heading for all pages*/
+h1 {
+  background-color: background;
+  font-size: xx-large;
+  border-radius: 24px;
+  /*width: 50%;
+  height: 300%;*/
+  padding: 10px;
+  padding-bottom: 20px;
+  vertical-align: central;
+  text-shadow: 2px 2px brown;
+}
+
+p {
+  padding: 20px;
+}
+
+/*
+  top of page menu
+  currently just home, but may add other pages as well
+*/
+span#menu {
+  padding: 5px;
+  /* tried to send whole "box" to right, didn't work
+  text-align: right;*/
+  border-radius: 12px;
+  background-color: aqua;
+  /*to align right*/
+  float: right;
+  text-shadow: none;
+}
+
+/*span#title {
+  padding-top: 5px;
+  float: left;
+}*/
+
+iframe {
+  background-color: beige;
+}
+
+div#assn {
+  padding-left: 10px;
+  /*not sure why, but padding-top appears to jump from 0 pixels to ~20*/
+  padding-top: 1px;
+  background-color: beige;
+  
+  /* These items don't seem to have any effect whatsoever
+  border-width: 5px;
+  border-radius: 5px;
+  border-color: black;
+  box-shadow: 5px;*/
+}
+
+h3 {
+}
+
+.columnleft{
+  float: left;
+  max-width: 45%;
+}
+
+.columnright{
+  float: right;
+  /*
+  max-width: 50%;
+  */
+  width: 45%;
+}
+
+.columncenter{
+  max-width: 30%;
+}
+
+.columlist{
+  display: inline;
+}
+
+ul{
+  //display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li{
+  display: inline-table;
+  //width: auto;
+  background-color: beige;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 250px;
+  //width: fit-content;
+  //width: max-content;
+  //width: min-content;
+  /*
+  min-width: 100px;
+  max-width: 45%;
+  */
+}
+
+ul li h4{
+  margin: 0;
+  padding: 5px;
+  border-bottom: 2px solid;
+  //border-width: 5px;
+  //width: fit-content;
+  //width: max-content;
+  //width: min-content;
+  //width: 200px;
+  background-color: beige;
+}
+
+ul li table{
+  //display: inline;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+td{
+  min-width: 30px;
+  border: 5px black;
+  background-color: beige;
+}
+
+form p, form{
+  margin: 0;
+  padding: 5px;
+}
+
+p input{
+  width: 30px;
+}
+
+li table tr:first-child td, li table tr td:first-child{
+  background-color: lightgray;
+}
+
