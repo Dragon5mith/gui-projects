@@ -17,6 +17,9 @@ li {
   background-color: beige;
 }
 
+.indent{
+  margin-left: 10px;
+}
 
 h1.header {
   font-size: large;
