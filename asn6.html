@@ -10,7 +10,7 @@
     <!-- GitHub css and styling -->
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <!-- my standard css for this class -->
+    <!-- my css for this class modified for github-->
     <link href="./stylesheets/GUIcss.css" rel="stylesheet" type="style/css">
     <script src="javascripts/scale.fix.js"></script>
     <!-- loading jQuery -->
@@ -33,7 +33,9 @@
           //testwindow.document.write("yep");
 
           $(this).children().remove(".error");
+          $("input").removeClass("error");
 
+          
           /* //moved error checking
            var errormsg = "Error: ";
            var errormid = "";
@@ -112,27 +114,33 @@
 
         //error checking for inputs
         if (isNaN(colmin)) {
+          $("#colmin").addClass("error");
           errors += 1;
-          errmid += "Column min ";
+          errmid += "Column start ";
         }
         if (isNaN(colmax)) {
+          $("#colmax").addClass("error");
           errors += 1;
-          errmid += "Column max ";
+          errmid += "Column end ";
         }
         if (isNaN(colstep)) {
+          $("#colstep").addClass("error");
           errors += 1;
           errmid += "Column step ";
         }
 
         if (isNaN(rowmin)) {
+          $("#rowmin").addClass("error");
           errors += 1;
-          errmid += "Row min ";
+          errmid += "Row start ";
         }
         if (isNaN(rowmax)) {
+          $("#rowmax").addClass("error");
           errors += 1;
-          errmid += "Row max ";
+          errmid += "Row end ";
         }
         if (isNaN(rowstep)) {
+          $("#rowstep").addClass("error");
           errors += 1;
           errmid += "Row step ";
         }
