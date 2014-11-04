@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!--
+    Ian Smith: Ian_Smith@student.uml.edu
+    created 10/28/2014
+    In class assignment
+    -->
+    <title>In-class Loading File and Dynamic changing</title>
+    <meta name="viewport" content="width=device-width">
+
+    <!-- GitHub css and styling -->
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <!-- my standard css for this class -->
+    <link href="./stylesheets/GUIcss.css" rel="stylesheet" type="style/css">
+    <!-- loading jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+    </script>
+
+    <!-- setTimeout suggested -->
+    <!-- loading my text -->
+    <script type="text/javascript">
+      //var story;
+      success = "<p>It Worked!!</p><p>Author: ";
+      file = "../jfiles/assignment5.json";
+      function failure(loading) {
+        return "<p>Sorry, the file " + loading + " was not available</p>";
+      }
+
+      function load(data) {
+        window.clearInterval(notLoaded);
+        $("#content").children().remove();
+        $("#content").append(success + data.author + "</p>");
+      }
+
+      $.getJSON(file, "", load);
+      $.g;
+      function re_load(url) {
+        $.getJSON(url, "", load);
+        no_load(url);
+      }
+      function no_load(url) {
+        notLoaded = window.setInterval(function() {
+          window.clearInterval(notLoaded);
+          $("#content").children().remove();
+          $("#content").append(failure(url));
+        }, 100);
+      }
+      /*
+       jQuery.ajax({
+       async: false,
+       dataType: "json",
+       url: "./jfiles/assignment5.json",
+       success: function(data) {
+       story = data;
+       }
+       });*/
+
+      jQuery(document).ready(function() {
+        //placeContent();
+        no_load();
+        $(valid).click(function() {
+          re_load("../jfiles/assignment5.json");
+        });
+        $(invalid).click(function() {
+          re_load("../jfiles/assignment5.jsn");
+        });
+      });
+    </script>
+    <script type="text/javascript">
+    </script>
+
+  </head>
+  <body>
+    <div id="assn">
+      <p>Result Here:</p>
+      <p>
+        <input class="inclass" id="valid" type="button" value="Load Valid"/>
+        <input class="inclass" id="invalid" type="button" value="Load Invalid"/>
+      </p>
+      <div id="content"></div>
+    </div>
+  </body>
+</html>
