@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!--
+    Author: Ian Smith, ismithorigami@gmail.com
+    
+    Update to asinment 8
+    -->
+    <title>GUI Assignment 8</title>
+    <!-- GitHub css and styling -->
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <!-- my css for this class modified for github-->
+    <link href="./stylesheets/GUIcss.css" rel="stylesheet" type="style/css">
+    <script src="javascripts/scale.fix.js"></script>
+    <!-- loading jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- loading tab interface -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!-- loading validator -->
+    <script src="./jquery.validate.min.js"></script>
+
+    <!-- build on ready -->
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+
+        //set up tabs
+        $("#myTabs").tabs();
+
+        //set up validating
+        $("#inputs").validate();
+
+        $("#testRemove").click(function() {
+          $("#myTabs").children(".tab0").remove();
+          $("#tabList").children(".tab0").remove();
+          $("#myTabs").tabs("refresh");
+        });
+        $(".close").click(removetab);
+        checkValid();
+      });
+      function checkValid() {
+
+        repopulate(1, 5, 1, 1, 4, 1, "tab0");
+        $("#inputs").submit(function() {
+
+          //var testwindow = window.open("", "testing");
+          //testwindow.document.write("yep");
+
+          //remove unnecessary error messages
+          $("h5").children().remove();
+          $("input").removeClass("error");
+
+          rm = parseInt(this.rowmin.value);
+          rx = parseInt(this.rowmax.value);
+          rs = parseInt(this.rowstep.value);
+
+          cm = parseInt(this.colmin.value);
+          cx = parseInt(this.colmax.value);
+          cs = parseInt(this.colstep.value);
+
+          //run the table filling function
+          var errmsg = "<span class=\"error\">Error: ";
+          var errmid = "";
+          var errend = "";
+          var numerrors = 0;
+
+          //error checking for inputs
+          if (isNaN(cm)) {
+            $("#colmin").addClass("error");
+            numerrors += 1;
+            errmid += "Column start ";
+          }
+          if (isNaN(cx)) {
+            $("#colmax").addClass("error");
+            numerrors += 1;
+            errmid += "Column end ";
+          }
+          if (isNaN(cs)) {
+            $("#colstep").addClass("error");
+            numerrors += 1;
+            errmid += "Column step ";
+          }
+
+          if (isNaN(rm)) {
+            $("#rowmin").addClass("error");
+            numerrors += 1;
+            errmid += "Row start ";
+          }
+          if (isNaN(rx)) {
+            $("#rowmax").addClass("error");
+            numerrors += 1;
+            errmid += "Row end ";
+          }
+          if (isNaN(rs)) {
+            $("#rowstep").addClass("error");
+            numerrors += 1;
+            errmid += "Row step ";
+          }
+
+          // If any errors, do not update the table, just give the warning
+          if (numerrors > 0) {
+            if (numerrors === 1) {
+              errend = "is not a valid number.</span>";
+            } else {
+              errend = "are not valid numbers.</span>";
+            }
+            errmsg += errmid + errend;
+            document.getElementById("errors").innerHTML = errmsg;
+            jQuery("#errors").html(errmsg);
+            return;
+          }
+          newtab();
+          repopulate(cm, cx, cs, rm, rx, rs, "tab" + (numTabs - 1));
+        });
+
+      }
+    </script>
+
+    <!--
+      function to recalculate and repopulate the math tables
+      tabname now specifies which tab gets populated
+    -->
+    <script type="text/javascript">
+      function repopulate(colmin, colmax, colstep, rowmin, rowmax, rowstep, tabname) {
+
+        //cols = [col1, col2, col3, col4, col5];
+        //rows = [row1, row2, row3, row4];
+
+        var add = "<tr><td></td>";
+        var sub = "<tr><td></td>";
+        var mult = "<tr><td></td>";
+        var divd = "<tr><td></td>";
+
+
+        //first heading row
+        for (i = colmin; i <= colmax; i += colstep) {
+          add += "<td>" + i + "</td>";
+          sub += "<td>" + i + "</td>";
+          mult += "<td>" + i + "</td>";
+          divd += "<td>" + i + "</td>";
+        }
+        //testwindow.document.write("?add:" + add + "?");
+
+        add += "</tr>";
+        sub += "</tr>";
+        mult += "</tr>";
+        divd += "</tr>";
+
+        i = 0;
+
+        //fill the tables
+        for (i = rowmin; i <= rowmax; i += rowstep) {
+
+          add += "<tr><td>" + i + "</td>";
+          sub += "<tr><td>" + i + "</td>";
+          mult += "<tr><td>" + i + "</td>";
+          divd += "<tr><td>" + i + "</td>";
+          c = 0;
+          for (c = colmin; c <= colmax; c += colstep) {
+            add += "<td>" + (i + c).toFixed(2) + "</td>";
+            sub += "<td>" + (c - i).toFixed(2) + "</td>";
+            mult += "<td>" + (i * c).toFixed(2) + "</td>";
+            divd += "<td>" + (c / i).toFixed(2) + "</td>";
+
+          }
+          add += "</tr>";
+          sub += "</tr>";
+          mult += "</tr>";
+          divd += "</tr>";
+
+        }
+
+        //doubled placements because each type has had times when they didn't work
+        //document.getElementById("addition").innerHTML = add;
+        jQuery("#" + tabname + " #addition").html(add);
+        //$("#" + tabname).children("#addition").append(add);
+
+        //document.getElementById("subtraction").innerHTML = sub;
+        jQuery("#" + tabname + " #subtraction").html(sub);
+        //document.getElementById("multiplication").innerHTML = mult;
+        jQuery("#" + tabname + " #multiplication").html(mult);
+        //document.getElementById("division").innerHTML = divd;
+        jQuery("#" + tabname + " #division").html(divd);
+
+      }
+    </script>
+
+    <!--
+      adding new tabs
+    -->
+    <script type="text/javascript">
+      numTabs = 1;
+      selectedTab = "tab0";
+      function newtab() {
+        tabSelect = "<li class=\"tab" + numTabs + "\">";
+        tabSelect += "<a href=\"#tab" + numTabs + "\">Tab " + numTabs + "</a>";
+        tabSelect += "<button class=\"close\" itemscope=\"\" itemtype=\"tab" + numTabs + "\">X</button></li>";
+        //tabContent broken up for readability
+        tabContent = "<div id=\"tab" + numTabs + "\" class=\"tab" + numTabs + "\"><ul id=\"tables\"><li>";
+        tabContent += "<h4>Addition</h4><table id=\"addition\"></table></li>";
+        tabContent += "<li><h4>Subtraction</h4><table id=\"subtraction\"></table>";
+        tabContent += "</li><li><h4>Multiplication</h4><table id=\"multiplication\">";
+        tabContent += "</table></li><li><h4>Division</h4><table id=\"division\"></table></li></ul></div>";
+
+        $("#tabList").append(tabSelect);
+        $("#myTabs").append(tabContent);
+        $("#myTabs").tabs("refresh");
+        newclose = $("#tabList .tab" + numTabs + " button");
+        $(newclose).click(removetab);
+
+        numTabs++;
+
+      }
+    </script>
+
+    <!-- removing tabs -->
+    <script type="text/javascript">
+      function removetab() {
+        removing = $(this).attr("itemtype");
+        console.log(removing);
+        $("." + removing).remove();
+        //if (selectedTab === tabName) {
+        //$("#tabList").children("." + tabName).remove();
+        //}
+        //$("#myTabs").children("." + tabName).remove();
+        //$("#myTabs").children("#table").remove();
+        //newtab();
+        $("#myTabs").tabs("refresh");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">
+          Assignment 6: Creating an Interactive Dynamic Table
+        </h1>
+        <p class="header">Assignments for GUI Programming 1</p>
+        <ul>
+          <li><a class="buttons" href="http://weblab.cs.uml.edu/~ismith/gui/">My Class Page</a></li>
+        </ul>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Dragon5mith">Dragon5mith</a></p>
+      </header>
+      <!-- div to make a difference between Heines-provided information and my own comments-->
+      <section>
+        <div id="assn">
+          <h3>
+            Purpose
+          </h3>
+          <p>
+            Assignment Location: <a href="https://teaching.cs.uml.edu/~heines/91.461/91.461-2014-15f/461-assn/CreatingADynamicTable-v03.jsp">
+              Locked page
+            </a><br>
+            Build a page that dynamically builds tabs.
+          </p>
+        </div>
+        <h3>
+          Information
+        </h3>
+        <p>
+           
+          <br>
+        </p>
+        <!-- inputting the form step size added for my own variation -->
+        <form id="inputs" action="javascript:void(0)">
+          <p>
+            Columns:
+          </p>
+          <p class="indent">
+            Start
+            <input type="text" id="colmin" value="1" class="required number" title="Please input a valid numberto start the columns at."/>
+            End
+            <input type="text" id="colmax" value="5" class="required number" title="Please input a valid numberto end the columns at."/>
+            Step Size
+            <input type="text" id="colstep" value="1" class="required number" title="Please input a valid number to increase columns by."/>
+          </p>
+          <p>
+            Rows:
+          </p>
+          <p class="indent">
+            Start
+            <input type="text" id="rowmin" value="1" class="required" title="Please input a value to start the rows at."/>
+            End
+            <input type="text" id="rowmax" value="4" class="required" title="Please input a value to end the rows at."/>
+            Step Size
+            <input type="text" id="rowstep" value="1" class="required" title="Please input a value to increase rows by."/>
+          </p>
+          <input type="submit" value="Add New Tab"/>
+          <label class="error" for="colmin"></label>
+          <label class="error" for="colmax"></label>
+          <label class="error" for="colstep"></label>
+          <label class="error" for="rowmin"></label>
+          <label class="error" for="rowmax"></label>
+          <label class="error" for="rowstep"></label>
+
+        </form>
+        <button onclick="" id="testRemove" value="Close All" name="Test">Close All</button>
+
+        <!-- spot to hold error messages -->
+        <h5 id="errors"></h5>
+
+        <!-- 
+          empty tables
+        -->
+        <div id="myTabs">
+          <ul id="tabList">
+            <li class="tab0"><a href="#tab0">Default</a><button class="close" itemscope="" itemtype="tab0">X</button></li>
+            <!-- testing tabs
+            <li class="tab1"><a href="#tab1">Tab 1</a><button class="close" itemscope="" itemtype="tab1">X</button></li>
+            <li class="tab2"><a href="#tab2">Tab 2</a><button class="close" itemscope="" itemtype="tab2">X</button></li>
+            -->
+          </ul>
+          <div id="tab0" class="tab0">
+            <ul id="tables">
+              <li>
+                <h4>Addition</h4>
+                <table id="addition">
+                </table>
+              </li>
+              <li>
+                <h4>Subtraction</h4>
+                <table id="subtraction">
+                </table>
+              </li>
+              <li>
+                <h4>Multiplication</h4>
+                <table id="multiplication">
+                </table>
+              </li>
+              <li>
+                <h4>Division</h4>
+                <table id="division">
+                </table>
+              </li>
+            </ul>
+          </div>
+          <!--
+          <div id="tab1" class="tab1"><p>Nothing here.</p></div>
+          <div id="tab2" class="tab2"><p>Testing here.</p></div>
+          -->
+        </div>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+  </body>
+</html>
